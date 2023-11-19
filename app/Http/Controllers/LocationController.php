@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Location;
 use Illuminate\Support\Facades\Request;
 use Inertia\Inertia;
+use Illuminate\Validation\Rule;
 
 class LocationController extends Controller
 {
@@ -13,22 +14,26 @@ class LocationController extends Controller
      */
     public function indexAPI()
     {
-    $locations= Location::select('location','longtitude','latitude')->get();
-    return response()->json($locations);
+        $locations = Location::select('location', 'longtitude', 'latitude')->orderBy('location')->get();
+        return response()->json($locations);
     }
+
 
     public function index()
     {
-    $locations= Location::all();
-    return Inertia::render('Locations/List',['locations'=>$locations]);
+        $locations = Location::orderBy('location')->get();
+        return Inertia::render('Locations/List', ['locations' => $locations]);
     }
+
 
 
 
 
     public function create()
     {
-        return Inertia::render('Locations/Create');
+        return Inertia::render('Locations/Create', [
+            'message' => session('error')
+            ]);
     }
 
     /**
@@ -36,10 +41,19 @@ class LocationController extends Controller
      */
     public function store()
     {
-        Location::create([
-            "location"=> Request::get("location"),
+        Request::validate([
+            "location" => 'required',
         ]);
-        return to_route('locations')->with('success', 'New  created.');
+
+        if (Location::where('location', Request::get('location'))->first()) {
+            return to_route('location.create')->with(['error' => 'This location already exists.']);
+        }
+
+        Location::create([
+            "location" => Request::get("location"),
+        ]);
+
+        return to_route('locations')->with('success', 'New location created.');
     }
 
     /**
@@ -66,14 +80,18 @@ class LocationController extends Controller
     public function update(Location $location)
     {
         Request::validate([
-            "location"=> 'required',
+            'location' => [
+                'required',
+                Rule::unique('locations', 'location')->ignore($location->id),
+            ],
         ]);
 
-        Location::where('id',$location->id)
-        ->update([
-            "location"=> Request::get("location"),
-        ]);
-        return to_route('locations')->with('success', 'location  Updated.');
+        Location::where('id', $location->id)
+            ->update([
+                'location' => Request::get('location'),
+            ]);
+
+        return to_route('locations')->with('success', 'Location updated.');
     }
 
     /**

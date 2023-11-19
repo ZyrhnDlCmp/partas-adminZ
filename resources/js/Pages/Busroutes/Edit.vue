@@ -22,11 +22,15 @@ const props = defineProps({
     })
 
     function update() {
-        router.post(`/busroute/${props.busroute.id}`, {
-            _method: 'put',
-            origin: form.origin,
-            destination: form.destination,
-        })
+        if (form.origin !== form.destination) {
+            router.post(`/busroute/${props.busroute.id}`, {
+                _method: 'put',
+                origin: form.origin,
+                destination: form.destination,
+            })   
+        } else {
+            alert("Origin and destination cannot be the same");
+        }
   }
 
 </script>

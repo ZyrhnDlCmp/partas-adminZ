@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head,router  } from '@inertiajs/vue3';
-import { defineProps } from 'vue';
+import { defineProps, watchEffect } from 'vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue'
 import { reactive,ref } from 'vue'
 import InputLabel from '@/Components/InputLabel.vue'
@@ -12,6 +12,17 @@ import TextInput from '@/Components/TextInput.vue'
       capacity: "",
       type: ""
   })
+
+  const props = defineProps({
+    message : String
+  })
+
+  watchEffect(() => {
+      if (props.message){
+          console.log(props.message)
+          alert(props.message);
+        }
+    })
 
   function submit() {
       router.post(route("bus.store"),form);
@@ -35,10 +46,13 @@ import TextInput from '@/Components/TextInput.vue'
                             <form class="w-full max-w-sm"  @submit.prevent="submit">
                                 <div class="md:w-1/3">
                                 <InputLabel for="code" class="" value="Code"/>
+
                                 </div>
+                                <!-- THE VALIDATED INPUT FIELD FOR CODE-->
                                 <div class="block w-full">
-                                    <TextInput  id="origin"  type="text" v-model="form.code" required />
+                                    <TextInput  id="origin" placeholder="ABC-123" pattern="[A-Z]{3}-[0-9]{3}" title="Please enter a code in the format: ABC-123" type="text" v-model="form.code" required/>
                                 </div>
+
                                 <InputLabel for="type" class="block font-medium text-gray-700">Select Bus Type:</InputLabel>
                                 <select id="type" v-model="form.type" class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:outline-none focus:border-indigo-500">
                                     <option value="deluxe">De Luxe</option>
@@ -51,6 +65,8 @@ import TextInput from '@/Components/TextInput.vue'
                                 <TextInput
                                     id="capacity"
                                     type="number"
+                                    min="8"
+                                    max="64"
                                     v-model="form.capacity"
                                     required
                                 />

@@ -14,9 +14,8 @@ class BusController extends Controller
      */
     public function index()
     {
-
-        $buses = Bus::all();
-        return Inertia::render('Buses/List',[
+        $buses = Bus::orderBy('capacity')->get();
+        return Inertia::render('Buses/List', [
             'buses' => $buses
         ]);
     }
@@ -26,7 +25,9 @@ class BusController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Buses/Create');
+        return Inertia::render('Buses/Create', [
+            'message' => session('error')
+        ]);
     }
 
     /**
@@ -40,6 +41,9 @@ class BusController extends Controller
             'capacity' =>'required',
         ]);
 
+        if (Bus::where('code', Request::get('code'))->first()) {
+            return to_route('bus.create')->with(['error' => 'This Bus Code already exists.']);
+        }
 
         Bus::create([
             'code' =>Request::get('code'),
