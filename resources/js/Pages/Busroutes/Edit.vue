@@ -8,10 +8,12 @@ import PrimaryButton from '@/Components/PrimaryButton.vue'
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 
+import { computed } from 'vue';
+
 const props = defineProps({
       busroute: Object,
       locations: Object
-  })
+  });
 
 
 
@@ -20,18 +22,25 @@ const props = defineProps({
             origin: props.busroute.origin,
             destination: props.busroute.destination,
     })
+    const existingRoute = computed(() => {
+    return props.locations.find(route => {
+        return route.origin === form.origin && route.destination === form.destination;
+    });
+});
 
-    function update() {
-        if (form.origin !== form.destination) {
-            router.post(`/busroute/${props.busroute.id}`, {
-                _method: 'put',
-                origin: form.origin,
-                destination: form.destination,
-            })   
-        } else {
-            alert("Origin and destination cannot be the same");
-        }
-  }
+function update() {
+    if (existingRoute.value) {
+        alert('This route already exists.');
+    } else if (form.origin !== form.destination) {
+        router.post(`/busroute/${props.busroute.id}`, {
+            _method: 'put',
+            origin: form.origin,
+            destination: form.destination,
+        });
+    } else {
+        alert('Origin and destination cannot be the same');
+    }
+}
 
 </script>
 

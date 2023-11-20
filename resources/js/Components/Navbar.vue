@@ -14,15 +14,33 @@ import { Link } from '@inertiajs/vue3';
       </div>
       <div class="flex items-center">
           <div class="flex items-center ml-3">
+
+            <button type="button" class="flex text-white px-2 bg-blue-400 rounded-full focus:ring-gray-300 dark:focus:ring-gray-600">
+
+            </button>
+            <!-- <div>
+                <button @click="changeColor" type="button" :style="{ backgroundColor: dynamicColor }" class="flex text-white px-2 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                  <span>{{$page.props.auth.user.name}}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="ml-2 w-5 h-5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
+                  </svg>
+              </button>
+            </div> -->
+                          
+            <!-- ==|| NAVBAR PROFILE BUTTON ||== -->
+
+
             <div>
               <button type="button" class="flex text-white px-2 bg-blue-400 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
                 <span>{{$page.props.auth.user.name}}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class=" ml-2 w-5 h-5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5" />
                 </svg>
-
                 </button>
             </div>
+          
+
+            
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
               <div class="px-4 py-3" role="none">
 
