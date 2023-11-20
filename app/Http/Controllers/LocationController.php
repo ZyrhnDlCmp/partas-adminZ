@@ -18,25 +18,12 @@ class LocationController extends Controller
         return response()->json($locations);
     }
 
-
+    
     public function index()
     {
-        $sortField = Request::get('sort', 'location'); // Default sort by location
-        $sortDirection = Request::get('direction', 'asc'); // Default sort direction is ascending
-    
-        $locations = Location::orderBy($sortField, $sortDirection)->get();
-    
-        return Inertia::render('Locations/List', [
-            'locations' => $locations,
-            'sort' => [
-                'field' => $sortField,
-                'direction' => $sortDirection,
-            ],
-        ]);
+    $locations= Location::all();
+    return Inertia::render('Locations/List',['locations'=>$locations]);
     }
-
-
-
 
 
     public function create()
