@@ -68,7 +68,6 @@ import TextInput from '@/Components/TextInput.vue'
                                     min="25"
                                     placeholder="25-90"
                                     max="90"
-                                    max="64"
                                     v-model="form.capacity"
                                     required
                                 />

@@ -47,7 +47,14 @@ import TextInput from '@/Components/TextInput.vue'
                                 <InputLabel for="location" class="" value="Location"/>
                                 </div>
                                 <div class="block w-full">
-                                    <TextInput  id="location"  type="text" v-model="form.location" required />
+                                    <input
+                                        id="location"
+                                        type="text"
+                                        v-model="form.location"
+                                        required
+                                        pattern="[A-Za-z]+"
+                                        title="Please enter letters only in the location field."
+                                    />
                                 </div>
 
                                 <div class=" py-3 md:w-1/3">
