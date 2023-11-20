@@ -55,18 +55,19 @@ import TextInput from '@/Components/TextInput.vue'
 
                                 <InputLabel for="type" class="block font-medium text-gray-700">Select Bus Type:</InputLabel>
                                 <select id="type" v-model="form.type" class="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-indigo-200 focus:outline-none focus:border-indigo-500">
-                                    <option value="deluxe">De Luxe</option>
+                                    <option value="deluxe">Deluxe</option>
                                     <option value="firstclass">First Class</option>
                                     <option value="luxury">Luxury</option>
-                                    <option value="superdeluxe">Super De Luxe</option>
+                                    <option value="superdeluxe">Super Deluxe</option>
                                  </select>
 
                                 <InputLabel for="capacity"  class="block w-1/2 mt-5" value="Capacity"/>
                                 <TextInput
                                     id="capacity"
                                     type="number"
-                                    min="8"
-                                    max="64"
+                                    min="25"
+                                    placeholder="25-90"
+                                    max="90"
                                     v-model="form.capacity"
                                     required
                                 />
