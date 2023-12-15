@@ -55,16 +55,7 @@ defineProps({
                                     <InputLabel for="price"  value="Price"/>
                                 </div>
                                 <div class="block w-full">
-                                    <div class="input-group">
-                                        <TextInput
-                                        id="price"
-                                        type="number"
-                                        placeholder="₱ 0.00"
-                                        v-model="form.price"
-                                        :min="1"
-                                        required
-                                        />
-                                    </div>
+                                    <TextInput  id="price"  type="number" v-model="form.price" required />
                                 </div>
 
 

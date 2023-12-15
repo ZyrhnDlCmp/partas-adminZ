@@ -76,6 +76,7 @@ Route::middleware('auth')->group(function () {
 
 
     //locations
+    Route::get('/locations', [LocationController::class, 'index'])->name('locations');
     Route::get('locations', [LocationController::class, 'index'])->name('locations');
     Route::get('create_location', [LocationController::class, 'create'])->name('location.create');
     Route::get('show_location', [LocationController::class, 'show'])->name('location.show');
